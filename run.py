@@ -2,10 +2,16 @@ import requests
 import re
 import html
 import urllib.parse
+import sys
 
-html_url = input('>_ Please input pgyer url\n')
+html_url = ''
+if len(sys.argv) >= 2:
+    html_url = sys.argv[1]
+if len(html_url) == 0:
+    html_url = input('>_ Please input pgyer url\n')
 if len(html_url) == 0:
     exit()
+
 html_text = requests.get(html_url).text
 key = re.findall(r'aKeyForAdSense = \'(\S+)\'', html_text).pop()
 url = f'https://www.pgyer.com/app/plist/{key}/install//s.plist'
